@@ -2,14 +2,16 @@
     <v-row>
         <v-col cols="12">
             <v-list-item two-line>
-                <v-list-item-content>
-                    <v-list-item-title class="text-h5">{{itemName}}</v-list-item-title>
-                    <v-list-item-subtitle class="text-6 blue-grey--text">{{itemYear}}</v-list-item-subtitle>
-                </v-list-item-content>
+            <v-list-item-content>
+                <v-list-item-title class="text-h5">{{itemName}}</v-list-item-title>
+                <v-list-item-subtitle class="text-6 blue-grey--text">{{itemYear}}</v-list-item-subtitle>
+                
+            </v-list-item-content>
             </v-list-item>
             <hr class="my-2 black">
             <v-list-item three-line>
             <v-list-item-content>
+                
                 <v-list-item-title>{{item.status}}</v-list-item-title>
                 <v-list-item-subtitle>
                     {{item.overview}}
@@ -17,9 +19,9 @@
             </v-list-item-content>
             </v-list-item>
 
-            <!-- <v-btn class="ma-2" v-if="!isMovie" :loading="isLoading" @click="refreshSeason" icon>
+            <v-btn class="ma-2" v-if="!isMovie" :loading="isLoading" @click="refreshSeason" icon>
                 <v-icon>mdi-refresh</v-icon>
-            </v-btn> -->
+            </v-btn>
 
             <div v-if="item.seasons">
                 <v-tabs v-model="tab" background-color="dark" dark>
@@ -31,7 +33,7 @@
                 <v-tab-item v-for="season in item.seasons" :key="season.id">
                     <v-simple-table width="300px" height="400px">
                         <template v-slot:default>
-                        <!-- <thead>
+                        <thead>
                             <tr>
                             <th class="text-left">
                                 
@@ -43,7 +45,7 @@
                                 Description
                             </th>
                             </tr>
-                        </thead> -->
+                        </thead>
                         <tbody>
                             <tr
                                 v-for="episode of season.episodes" 
