@@ -20,10 +20,10 @@ export default new Vuex.Store({
     isloading: (state) => state.isloading,
   },
   mutations: {
-    setMovies: (state, movies) => state.movies = movies,
-    setShows: (state, shows) => state.shows = shows,
-    addMovie: (state, movie) => state.movies.unshift(movie),
-    addShow: (state, movie) => state.shows.unshift(movie),
+    setMovies: (state, items) => state.movies = items,
+    setShows: (state, items) => state.shows = items,
+    addMovie: (state, item) => state.movies.unshift(item),
+    addShow: (state, item) => state.shows.unshift(item),
     setLoadingTo: (state, boolean) => state.isloading = boolean,
     removeMovie: (state, id) => {
       const item = state.movies.find(i => i.id == id)
@@ -40,6 +40,29 @@ export default new Vuex.Store({
     async getMovies({commit}){
       const data = await $meta.movies().get()
       commit('setMovies', data)
+    },
+    async getShows({commit}){
+      const data = await $meta.shows().get()
+      commit('setShows', data)
+    },
+    async addMovieById({commit},id){
+      const data = await $meta.tmdb().movies().withId(id).get()
+        commit('addMovie', data)
+    },
+    async removeMovieById({commit},id){
+        await $meta.movies().withId(id).delete()
+        commit('removeMovie', id)
+    },
+    async addShowById({commit},id){
+      const data = await $meta.tmdb().shows().withId(id).get()
+      commit('addShow', data)
+    },
+    async removeShowById({commit},id){
+       await $meta.shows().withId(id).delete()
+        commit('removeShow', id)
+    },
+    async fixdata(){
+       await $meta.fixdata()
     },
   },
 })

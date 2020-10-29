@@ -46,6 +46,7 @@
         >
             <v-app-bar-nav-icon @click="drawer = !drawer"/>
             <v-spacer></v-spacer>
+            <v-btn tile :loading="isLoading" @click="fixdata">fix</v-btn>
             <v-btn tile router to="/login">Login</v-btn>
             <v-btn tile router to="/register">Register</v-btn>
         </v-app-bar>
@@ -53,6 +54,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
     name: 'Navbar',
     data: () => ({
@@ -83,6 +85,9 @@ export default {
         ]
     }),
     methods: {
+        ...mapActions([
+            'fixdata'
+        ])
     },
     watch: {
       dark(dark){
