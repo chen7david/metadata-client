@@ -21,58 +21,44 @@
                 </v-list-item-subtitle>
             </v-list-item-content>
             </v-list-item>
-            <v-btn v-if="!isMovie" class="my-4" :loading="isLoading" @click="refreshSeason" color="success">refresh</v-btn>
+
             <div v-if="item.seasons">
                 <v-tabs v-model="tab" background-color="dark" dark>
                     <v-tab v-for="item in item.seasons" :key="item.id">
-                        <v-btn icon>
+                        <v-btn :loading="isLoading" @click="refreshSeason" icon>
                             S{{ item.season_number }}
                         </v-btn>
                     </v-tab>
                 </v-tabs>
                 <v-tabs-items v-model="tab">
                 <v-tab-item v-for="season in item.seasons" :key="season.id">
-                    <!-- <v-list>
-                        <v-list-item three-line v-for="episode of season.episodes" :key="episode.id">
-                            <v-list-item-content>
-                                <v-list-item-title>
-                                    <v-chip small>S{{season.season_number}}E{{episode.episode_number}}</v-chip>
-                                    {{episode.name}}
-                                </v-list-item-title>
-                                <v-list-item-subtitle>
-                                {{episode.overview}}
-                                </v-list-item-subtitle>
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-list> -->
-                      <v-simple-table>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">
-            
-          </th>
-          <th class="text-left">
-            Name
-          </th>
-          <th class="text-left">
-            Description
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="episode of season.episodes" 
-          :key="episode.id"
-        >
-          <td>{{ episodeId(episode) }}</td>
-          <td>{{ episode.name }}</td>
-          <td>{{ episode.overview }}</td>
-        </tr>
-      </tbody>
-      </template>
-  </v-simple-table>
-                    
+                    <v-simple-table>
+                        <template v-slot:default>
+                        <thead>
+                            <tr>
+                            <th class="text-left">
+                                
+                            </th>
+                            <th class="text-left">
+                                Name
+                            </th>
+                            <th class="text-left">
+                                Description
+                            </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                v-for="episode of season.episodes" 
+                                :key="episode.id"
+                            >
+                            <td>{{ episodeId(episode) }}</td>
+                            <td>{{ episode.name }}</td>
+                            <td>{{ episode.overview }}</td>
+                            </tr>
+                        </tbody>
+                        </template>
+                    </v-simple-table>
                 </v-tab-item>
                 </v-tabs-items>
             </div>
