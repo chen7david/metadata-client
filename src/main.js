@@ -5,8 +5,12 @@ import store from './store'
 import vuetify from './plugins/vuetify';
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
-
+import meta from 'meta-agent'
 Vue.config.productionTip = false
+
+Vue.prototype.$mttp = meta({
+  baseURL: 'http://192.168.50.251:8000',
+})
 
 new Vue({
   router,
