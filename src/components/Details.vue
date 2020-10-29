@@ -22,7 +22,7 @@
             </v-list-item-content>
             </v-list-item>
 
-            <v-btn :loading="isLoading" @click="refreshSeason" icon>
+            <v-btn v-if="!isMovie" :loading="isLoading" @click="refreshSeason" icon>
                 <v-icon>mdi-refresh</v-icon>
             </v-btn>
 
