@@ -1,6 +1,9 @@
 <template>
   <v-container>
     <v-row fill-height>
+      <v-btn icon router to="/shows">
+          <v-icon>mdi-chevron-left</v-icon>
+      </v-btn>
       <v-col cols="12">
          <v-row justify="start">
               <MediaPoster :item="item" play="true"/>

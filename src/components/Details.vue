@@ -22,17 +22,19 @@
             </v-list-item-content>
             </v-list-item>
 
+            <v-btn :loading="isLoading" @click="refreshSeason" icon>
+                <v-icon>mdi-refresh</v-icon>
+            </v-btn>
+
             <div v-if="item.seasons">
                 <v-tabs v-model="tab" background-color="dark" dark>
                     <v-tab v-for="item in item.seasons" :key="item.id">
-                        <v-btn :loading="isLoading" @click="refreshSeason" icon>
-                            S{{ item.season_number }}
-                        </v-btn>
+                            S{{ seasonNumber(item.season_number) }}
                     </v-tab>
                 </v-tabs>
                 <v-tabs-items v-model="tab">
                 <v-tab-item v-for="season in item.seasons" :key="season.id">
-                    <v-simple-table>
+                    <v-simple-table width="300px" height="400px">
                         <template v-slot:default>
                         <thead>
                             <tr>
@@ -54,7 +56,11 @@
                             >
                             <td>{{ episodeId(episode) }}</td>
                             <td>{{ episode.name }}</td>
-                            <td>{{ episode.overview }}</td>
+                            <td>
+                                <v-btn icon>
+                                    <v-icon>mdi-play</v-icon>
+                                </v-btn>
+                            </td>
                             </tr>
                         </tbody>
                         </template>
@@ -67,8 +73,8 @@
 </template>
 
 <script>
-// import DeleteConfirmation from './DeleteConfirmation'
 import { mapActions } from 'vuex'
+import { padStart } from 'lodash'
 
 export default {
     name: 'Details',
@@ -131,12 +137,18 @@ export default {
             this.isLoading = false
         },
         episodeId(episode){
-            return `S${episode.season_number}E${episode.episode_number}`
+            return `S${padStart(episode.season_number,2, '0')}E${padStart(episode.episode_number,3, '0')}`
         },
         async refreshSeason(){
             this.isLoading = true
             await this.$mttp.shows().withId(this.item.id).season(this.tab).update()
             this.isLoading = false
+        },
+        seasonNumber(s){
+            return padStart(s,2, '0')
+        },
+        sortSeason(seasons){
+            return seasons.sort((a,b) => a.season_number - b.season_number)
         }
     }
 }
