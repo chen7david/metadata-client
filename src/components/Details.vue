@@ -135,7 +135,7 @@ export default {
         },
         async refreshSeason(){
             this.isLoading = true
-            await this.$mttp.shows().withId(this.item.id).seasons(this.tab).update()
+            await this.$mttp.shows().withId(this.item.id).season(this.tab).update()
             this.isLoading = false
         }
     }
