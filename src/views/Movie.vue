@@ -5,10 +5,9 @@
         <v-icon large>mdi-chevron-left</v-icon>
       </v-btn>
       <v-col cols="12">
-         <v-row justify="start">
-              
+         <v-row justify="start"> 
             <v-col lg="3"  sm="12" xs="12" align="center">
-              <MediaPoster class="ma-5" :item="item" play="true"/>
+              <VideoPlayer class="ma-5" :item="item" play="true"/>
             </v-col>
             <v-col lg="9" sm="12" xs="12">
               <Details :item="item"/>
@@ -20,7 +19,7 @@
 </template>
 
 <script>
-import MediaPoster from './../components/MediaPoster';
+import VideoPlayer from './../components/VideoPlayer';
 import Details from './../components/Details';
 import { mapActions, mapGetters } from 'vuex'
 
@@ -28,7 +27,7 @@ export default {
   name: 'Movies',
 
   components: {
-    MediaPoster,
+    VideoPlayer,
     Details
   },
 
