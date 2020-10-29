@@ -2,12 +2,15 @@
   <v-container>
     <v-row fill-height>
       <v-btn icon router to="/movies">
-        <v-icon>mdi-chevron-left</v-icon>
+        <v-icon large>mdi-chevron-left</v-icon>
       </v-btn>
       <v-col cols="12">
          <v-row justify="start">
-              <MediaPoster :item="item" play="true"/>
-            <v-col xs="12">
+              
+            <v-col lg="3"  sm="12" xs="12" align="center">
+              <MediaPoster class="ma-5" :item="item" play="true"/>
+            </v-col>
+            <v-col lg="9" sm="12" xs="12">
               <Details :item="item"/>
             </v-col>
           </v-row>
