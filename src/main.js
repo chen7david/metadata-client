@@ -10,6 +10,7 @@ Vue.config.productionTip = false
 
 Vue.prototype.$mttp = meta({
   baseURL: 'http://192.168.50.251:8000',
+  // baseURL: 'http://192.168.50.149:7000'
 })
 
 new Vue({

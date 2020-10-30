@@ -25,7 +25,7 @@
 
             <div v-if="item.seasons">
                 <v-tabs v-model="tab" background-color="dark" dark>
-                    <v-tab v-for="item in item.seasons" :key="item.id">
+                    <v-tab v-for="item in item.seasons" :key="item.season_number">
                             S{{ seasonNumber(item.season_number) }}
                     </v-tab>
                 </v-tabs>

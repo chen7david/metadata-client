@@ -7,7 +7,7 @@
       <v-col cols="12">
          <v-row justify="start"> 
             <v-col lg="3"  sm="12" xs="12" align="center">
-              <VideoPlayer class="ma-5" :item="item" play="true"/>
+              <VideoPlayer class="ma-5" :media="item" play="true"/>
             </v-col>
             <v-col lg="9" sm="12" xs="12">
               <Details :item="item"/>
