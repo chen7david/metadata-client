@@ -2,7 +2,7 @@
   <v-container>
     <h1>Documentation</h1>
     <hr class="my-5">
-    <p><v-chip>http://aox.hopto.org:8000</v-chip></p>
+    <p><v-chip>{{baseURL}}</v-chip></p>
   <v-simple-table>
     <template v-slot:default>
       <thead>
@@ -89,5 +89,11 @@ export default {
       
     ],
   }),
+  computed: {
+    baseURL(){
+      return this.$config.url.metadata
+    }
+  }
 };
+
 </script>

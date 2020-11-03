@@ -1,5 +1,4 @@
 <template>
-<!-- :style="{ backgroundImage: `url(${backgroundUrl})` }" -->
   <v-container>
     <v-row fill-height>
       <v-btn icon router to="/movies">
@@ -39,9 +38,6 @@ export default {
     ...mapGetters([
       'movies'
     ]),
-    backgroundUrl(){
-      return 'http://aox.hopto.org:8000/image/original/hCZCSUsrxVgiVZSfsjsMAW4p0ZM.jpg'
-    }
   },
   methods: {
     ...mapActions([]),
