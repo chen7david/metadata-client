@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import meta from 'meta-agent'
 
 const $meta = meta({
-  baseURL: 'http://aox.hopto.org:8000',
+  baseURL: '',
 })
 
 Vue.use(Vuex)

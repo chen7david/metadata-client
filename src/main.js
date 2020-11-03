@@ -12,7 +12,8 @@ Vue.config.productionTip = false
 
 console.log(config)
 Vue.prototype.$mttp = meta({
-  baseURL: 'http://aox.hopto.org:8000',
+  baseURL: config.url.metadata,
+  timeout: 80000
 })
 
 Vue.prototype.$config = config
