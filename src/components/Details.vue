@@ -3,8 +3,8 @@
         <v-col cols="12">
             <v-list-item two-line>
             <v-list-item-content>
-                <v-list-item-title class="text-h5">{{itemName}}</v-list-item-title>
-                <v-list-item-subtitle class="text-6 blue-grey--text">{{itemYear}}</v-list-item-subtitle>
+                <v-list-item-title class="text-h5">{{name}}</v-list-item-title>
+                <v-list-item-subtitle class="text-6 blue-grey--text">{{year}}</v-list-item-subtitle>
                 
             </v-list-item-content>
             </v-list-item>
@@ -66,7 +66,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import { padStart } from 'lodash'
 import ReadMore from './ReadMore'
 
@@ -75,7 +74,6 @@ export default {
     props: {
         item: null,
         tmdb: null,
-        play: null,
     },
     components: {
         ReadMore
@@ -83,68 +81,40 @@ export default {
     data: () => ({
         isLoading: false,
         tab: null,
+        seasonTabMap: []
     }),
     computed: {
-        itemName(){
+        name(){
             return this.isMovie ? this.item.title : this.item.name
         },
-        posterURL(){
-            const baseURL = this.tmdb ? 'http://image.tmdb.org/t/p/' : 'http://aox.hopto.org:8000/image/'
-            return  this.item.poster_path ? baseURL.concat(this.imgSize, this.item.poster_path) : './poster-missing.png'
-        },
-        imgSize(){
-            return ['original', 'w780', 'w500', 'w342', 'w185', 'w154', 'w92'][3]
-        },
-        imgSizePX(){
-            return this.imgSize.replace('w','').concat('px')
-        },
-        itemYear(){
+        year(){
             const date = this.item.title ? this.item.release_date : this.item.first_air_date
             return date ? new Date(date).getFullYear().toString() : ''
-        },
-        isMovie(){
-            return this.item.title != null
-        },
-        detailsLink(){
-            return `movie/${this.item.id}/id`
         },
         rating(){
             return `${this.item.vote_average}/10`
         },
-        
+        isMovie(){
+            return this.item.title != null
+        },
     },
     methods:{
-        ...mapActions([
-            'addShowById',
-            'addMovieById',
-            'removeShowById',
-            'removeMovieById',
-        ]),
-        async addItem(id){
-            this.isLoading = true
-            this.isMovie ? await this.addMovieById(id) : await this.addShowById(id)
-            this.isLoading = false
-        },
-        async deleteItem(id){
-            this.isLoading = true
-            this.isMovie ? await this.removeMovieById(id) : await this.removeShowById(id)
-            this.isLoading = false
-        },
         episodeId(episode){
             return `S${padStart(episode.season_number,2, '0')}E${padStart(episode.episode_number,3, '0')}`
         },
         async refreshSeason(){
             this.isLoading = true
             console.log(this.tab)
-            await this.$mttp.shows().withId(this.item.id).season(new String(this.tab)).update()
+            await this.$mttp.shows().withId(this.item.id).season(new String(this.getSeasonNumber(this.tab))).update()
             this.isLoading = false
         },
         seasonNumber(s){
             return padStart(s,2, '0')
         },
-        sortSeason(seasons){
-            return seasons.sort((a,b) => a.season_number - b.season_number)
+        getSeasonNumber(tab){
+            if(!tab) return '0'
+            return this.item.seasons[tab].season_number
         }
-    }
+    },
 }
 </script>
