@@ -51,13 +51,9 @@
                                 v-for="episode of season.episodes" 
                                 :key="episode.id"
                             >
-                            <td>{{ episodeId(episode) }}</td>
-                            <td>{{ episode.name }}</td>
-                            <td>
-                                <v-btn icon>
-                                    <v-icon>mdi-play</v-icon>
-                                </v-btn>
-                            </td>
+                                <td>{{ episodeId(episode) }}</td>
+                                <td>{{ episode.name }}</td>
+                                <td><ReadMore :text="episode.overview" limit="100"/></td>
                             </tr>
                         </tbody>
                         </template>
@@ -72,6 +68,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { padStart } from 'lodash'
+import ReadMore from './ReadMore'
 
 export default {
     name: 'Details',
@@ -81,7 +78,7 @@ export default {
         play: null,
     },
     components: {
-        // DeleteConfirmation
+        ReadMore
     },
     data: () => ({
         isLoading: false,
@@ -92,7 +89,7 @@ export default {
             return this.isMovie ? this.item.title : this.item.name
         },
         posterURL(){
-            const baseURL = this.tmdb ? 'http://image.tmdb.org/t/p/' : 'http://aox.hopto.org:9000/image/'
+            const baseURL = this.tmdb ? 'http://image.tmdb.org/t/p/' : 'http://aox.hopto.org:8000/image/'
             return  this.item.poster_path ? baseURL.concat(this.imgSize, this.item.poster_path) : './poster-missing.png'
         },
         imgSize(){

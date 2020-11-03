@@ -2,9 +2,7 @@
   <v-container>
     <h1>Documentation</h1>
     <hr class="my-5">
-    <p><v-chip>http://aox.hopto.org:7000</v-chip></p>
     <p><v-chip>http://aox.hopto.org:8000</v-chip></p>
-    <p><v-chip>http://aox.hopto.org:9000/image/$size/$imgURL</v-chip></p>
   <v-simple-table>
     <template v-slot:default>
       <thead>
@@ -50,38 +48,45 @@ export default {
         name: 'search tmdb-movies',
         method: 'get',
         path: 'tmdb-movies?search=nemo&year=2017',
-        description: ''
+        description: 'returns an array of movie metadata objects from tmdb'
       },
       {
         name: 'search tmdb-show',
         method: 'get',
         path: 'tmdb-shows?search=pokemon&year=2016',
-        description: ''
+        description: 'returns an array of show metadata objects from tmdb'
       },
       {
         name: 'search movies',
         method: 'get',
         path: 'movies?search=nemo&year=2017',
-        description: ''
+        description: 'returns an array of movie metadata objects'
       },
       {
         name: 'search show',
         method: 'get',
         path: 'shows?search=pokemon&year=2016',
-        description: ''
+        description: 'returns an array of show metadata objects'
       },
       {
         name: 'getById Movie',
         method: 'get',
         path: 'movie/:id/id',
-        description: ''
+        description: 'returns a single movie\'s metadata'
       },
       {
         name: 'getById show',
         method: 'get',
         path: 'show/:id/id',
-        description: ''
+        description: 'returns a single show\'s metadata'
       },
+      {
+        name: 'getById show',
+        method: 'get',
+        path: '/image/$size/$imgURL',
+        description: 'retrieves an image with a specified size'
+      },
+      
     ],
   }),
 };

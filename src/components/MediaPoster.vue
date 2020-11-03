@@ -57,8 +57,8 @@ export default {
             return this.isMovie ? this.item.title : this.item.name
         },
         posterURL(){
-            const baseURL = this.tmdb ? 'http://image.tmdb.org/t/p/' : 'http://aox.hopto.org:9000/image/'
-            return  this.item.poster_path ? baseURL.concat(this.imgSize, this.item.poster_path) : './poster-missing.png'
+            const baseURL = this.tmdb ? 'http://image.tmdb.org/t/p/' : 'http://aox.hopto.org:8000/image/'
+            return  this.item.poster_path ? baseURL.concat(this.imgSize, this.item.poster_path) : './poster-missing.jpg'
         },
         imgSize(){
             return ['original', 'w780', 'w500', 'w342', 'w185', 'w154', 'w92'][3]

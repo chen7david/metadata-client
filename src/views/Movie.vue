@@ -1,4 +1,5 @@
 <template>
+<!-- :style="{ backgroundImage: `url(${backgroundUrl})` }" -->
   <v-container>
     <v-row fill-height>
       <v-btn icon router to="/movies">
@@ -6,9 +7,6 @@
       </v-btn>
       <v-col cols="12">
          <v-row justify="start"> 
-            <v-col lg="3"  sm="12" xs="12" align="center">
-              <VideoPlayer class="ma-5" :media="item" play="true"/>
-            </v-col>
             <v-col lg="9" sm="12" xs="12">
               <Details :item="item"/>
             </v-col>
@@ -19,7 +17,6 @@
 </template>
 
 <script>
-import VideoPlayer from './../components/VideoPlayer';
 import Details from './../components/Details';
 import { mapActions, mapGetters } from 'vuex'
 
@@ -27,7 +24,6 @@ export default {
   name: 'Movies',
 
   components: {
-    VideoPlayer,
     Details
   },
 
@@ -42,7 +38,10 @@ export default {
   computed: {
     ...mapGetters([
       'movies'
-    ])
+    ]),
+    backgroundUrl(){
+      return 'http://aox.hopto.org:8000/image/original/hCZCSUsrxVgiVZSfsjsMAW4p0ZM.jpg'
+    }
   },
   methods: {
     ...mapActions([]),
