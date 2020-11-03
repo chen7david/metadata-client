@@ -19,8 +19,12 @@
             </v-list-item-content>
             </v-list-item>
 
-            <v-btn class="ma-2" v-if="!isMovie" :loading="isLoading" @click="refreshSeason" icon>
+            <v-btn class="ma-2" v-if="!isMovie" :loading="isLoading" @click="refreshSeason">
                 <v-icon>mdi-refresh</v-icon>
+            </v-btn>
+
+            <v-btn class="ma-2" v-if="!isMovie" :loading="isLoading" @click="addSeason">
+                <v-icon>mdi-plus</v-icon>
             </v-btn>
 
             <div v-if="item.seasons">
@@ -102,18 +106,27 @@ export default {
         episodeId(episode){
             return `S${padStart(episode.season_number,2, '0')}E${padStart(episode.episode_number,3, '0')}`
         },
-        async refreshSeason(){
-            this.isLoading = true
-            console.log(this.tab)
-            await this.$mttp.shows().withId(this.item.id).season(new String(this.getSeasonNumber(this.tab))).update()
-            this.isLoading = false
-        },
         seasonNumber(s){
             return padStart(s,2, '0')
         },
         getSeasonNumber(tab){
             if(!tab == null) return '0'
             return this.item.seasons[tab].season_number
+        },
+        async refreshSeason(){
+            let s = this.getSeasonNumber(this.tab)
+            this.isLoading = true
+            await this.$mttp.shows().withId(this.item.id).season(new String(s)).update()
+            this.isLoading = false
+        },
+        async updateSeason(s){
+            this.isLoading = true
+            await this.$mttp.shows().withId(this.item.id).season(new String(s)).update()
+            this.isLoading = false
+        },
+        async addSeason(){
+            let s = this.getSeasonNumber(this.tab)
+            await this.updateSeason(s + 1)
         }
     },
 }

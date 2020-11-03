@@ -9,11 +9,9 @@ import meta from 'meta-agent'
 import config from './../config'
 Vue.config.productionTip = false
 
-
-console.log(config)
 Vue.prototype.$mttp = meta({
   baseURL: config.url.metadata,
-  timeout: 80000
+  timeout: config.url.timeout
 })
 
 Vue.prototype.$config = config

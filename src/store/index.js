@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import meta from 'meta-agent'
+import config from './../../config'
 
 const $meta = meta({
-  baseURL: '',
+  baseURL: config.url.metadata,
+  timeout: config.url.timeout
 })
 
 Vue.use(Vuex)
