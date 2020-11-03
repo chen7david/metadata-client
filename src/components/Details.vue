@@ -112,7 +112,7 @@ export default {
             return padStart(s,2, '0')
         },
         getSeasonNumber(tab){
-            if(!tab) return '0'
+            if(!tab == null) return '0'
             return this.item.seasons[tab].season_number
         }
     },
