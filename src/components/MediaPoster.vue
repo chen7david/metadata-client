@@ -1,10 +1,8 @@
 <template>
     <v-hover v-slot:default="{ hover }" open-delay="10">
-        
-        <v-card class="mb-4" max-width="185px" color="rgb(0, 0, 0, 0.0)" elevation="0" tile>
-                
+        <v-card class="mb-4" max-width="185px" color="rgb(0, 0, 0, 0.0)" elevation="0" tile> 
                 <v-img :src="posterURL" class="mb-2" @error="onImgError()">
-                    <source v-if="imageError"  srcset="/poster-missing.jpg" type="image/jpg"/>
+                    <!-- <source v-if="imageError"  srcset="/poster-missing.jpg" type="image/jpg"/> -->
                     <v-overlay absolute :value="hover || isLoading">
                         <v-btn x-large :loading="isLoading" @click="deleteItem(item.id)" v-if="play" icon>
                             <v-icon>mdi-play</v-icon>
@@ -37,7 +35,6 @@
 </template>
 
 <script>
-// import DeleteConfirmation from './DeleteConfirmation'
 import { mapActions } from 'vuex'
 
 export default {
@@ -59,9 +56,9 @@ export default {
             return this.isMovie ? this.item.title : this.item.name
         },
         posterURL(){
-            const baseURL = this.tmdb ? 'http://image.tmdb.org/t/p/' : 'http://aox.hopto.org:8000/image/'
+            const baseURL = this.tmdb ? this.$config.url.tmdbImage : this.$config.url.metadata + '/image/'
             const url = this.item.poster_path ? baseURL.concat(this.size, this.item.poster_path) : './poster-missing.jpg'
-            return this.imageError ? './poster-missing.jpg' : url
+            return this.imageError ?  this.$config.url.defaultPoster : url
         },
         size(){
             return ['w780', 'w500', 'w342', 'w185', 'w154', 'w92'][2]
@@ -74,6 +71,7 @@ export default {
             return date ? new Date(date).getFullYear().toString() : ''
         },
         isMovie(){
+            console.log(this.$config)
             return this.item.title != null
         },
         detailsLink(){
@@ -81,7 +79,7 @@ export default {
         },
         rating(){
             return `${this.item.vote_average}`
-        }
+        },
     },
     methods:{
         ...mapActions([

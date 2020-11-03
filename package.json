@@ -15,6 +15,7 @@
     "meta-agent": "0.0.6",
     "roboto-fontface": "*",
     "vue": "^2.6.11",
+    "vue-cli-plugin-yaml": "^1.0.2",
     "vue-router": "^3.2.0",
     "vuetify": "^2.2.11",
     "vuex": "^3.4.0"
