@@ -3,7 +3,8 @@
         
         <v-card class="mb-4" max-width="185px" color="rgb(0, 0, 0, 0.0)" elevation="0" tile>
                 
-                <v-img :src="posterURL" class="mb-2">
+                <v-img :src="posterURL" class="mb-2" @error="onImgError()">
+                    <source v-if="imageError"  srcset="/poster-missing.jpg" type="image/jpg"/>
                     <v-overlay absolute :value="hover || isLoading">
                         <v-btn x-large :loading="isLoading" @click="deleteItem(item.id)" v-if="play" icon>
                             <v-icon>mdi-play</v-icon>
@@ -25,11 +26,11 @@
             <v-card-subtitle class="text-left pa-0">
                 <v-tooltip top>
                     <template v-slot:activator="{ on, attrs }">
-                        <div v-on="on" v-bind="attrs" class="font-weight-medium text-truncate">{{itemName}}</div>
+                        <div v-on="on" v-bind="attrs" class="font-weight-medium text-truncate">{{name}}</div>
                     </template>
-                    <span>{{itemName}}</span>
+                    <span>{{name}}</span>
                 </v-tooltip>
-                <div class="blue-grey--text">{{itemYear}}</div>
+                <div class="blue-grey--text">{{year}}</div>
             </v-card-subtitle>
         </v-card>
     </v-hover>
@@ -50,23 +51,25 @@ export default {
         // DeleteConfirmation
     },
     data: () => ({
-        isLoading: false
+        isLoading: false,
+        imageError: false
     }),
     computed: {
-        itemName(){
+        name(){
             return this.isMovie ? this.item.title : this.item.name
         },
         posterURL(){
             const baseURL = this.tmdb ? 'http://image.tmdb.org/t/p/' : 'http://aox.hopto.org:8000/image/'
-            return  this.item.poster_path ? baseURL.concat(this.imgSize, this.item.poster_path) : './poster-missing.jpg'
+            const url = this.item.poster_path ? baseURL.concat(this.size, this.item.poster_path) : './poster-missing.jpg'
+            return this.imageError ? './poster-missing.jpg' : url
         },
-        imgSize(){
-            return ['original', 'w780', 'w500', 'w342', 'w185', 'w154', 'w92'][3]
+        size(){
+            return ['w780', 'w500', 'w342', 'w185', 'w154', 'w92'][2]
         },
-        imgSizePX(){
-            return this.imgSize.replace('w','').concat('px')
+        width(){
+            return this.size.replace('w','').concat('px')
         },
-        itemYear(){
+        year(){
             const date = this.item.title ? this.item.release_date : this.item.first_air_date
             return date ? new Date(date).getFullYear().toString() : ''
         },
@@ -97,6 +100,10 @@ export default {
             this.isMovie ? await this.removeMovieById(id) : await this.removeShowById(id)
             this.isLoading = false
         },
+        onImgError(){
+            this.imageError = true
+            console.log('@image error ...')
+        }
     }
 }
 </script>
