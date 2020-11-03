@@ -57,7 +57,7 @@ export default {
         },
         posterURL(){
             const baseURL = this.tmdb ? this.$config.url.tmdbImage : this.$config.url.metadata + '/image/'
-            const url = this.item.poster_path ? baseURL.concat(this.size, this.item.poster_path) : './poster-missing.jpg'
+            const url = this.item.poster_path ? baseURL.concat(this.size, this.item.poster_path) : this.$config.url.defaultPoster
             return this.imageError ?  this.$config.url.defaultPoster : url
         },
         size(){
